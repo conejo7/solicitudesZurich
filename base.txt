@@ -1,0 +1,26 @@
+
+CREATE TABLE cliente (
+    id_cliente BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nombre VARCHAR(150) NOT NULL,
+    identificacion VARCHAR(20) NOT NULL UNIQUE,
+    fecha_registro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE vehiculo (
+    id_vehiculo BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    placa VARCHAR(10) NOT NULL UNIQUE,
+    marca VARCHAR(80) NOT NULL,
+    anio INTEGER NOT NULL
+);
+
+
+CREATE TABLE solicitud_seguro (
+    id_solicitud BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_cliente BIGINT NOT NULL REFERENCES cliente(id_cliente),
+    id_vehiculo BIGINT NOT NULL REFERENCES vehiculo(id_vehiculo),
+    valor_asegurado NUMERIC(12,2) NOT NULL,
+    porcentaje_prima NUMERIC(5,4) NOT NULL,
+    valor_prima NUMERIC(12,2) NOT NULL,
+    fecha_solicitud TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
